@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-// import './index.css';
+import './index.css';
 
 class CalcApp extends React.Component {
   constructor(props) {
@@ -135,7 +135,7 @@ class CalcApp extends React.Component {
         <br></br>
 
         {/* Want to put this into a keypad but can't seem to understand how */}
-
+<div className = "calc-skeleton">
         <NumberButton content="1" onClick={this.handlenumbers}/>
         <NumberButton content="2" onClick={this.handlenumbers}/>
         <NumberButton content="3" onClick={this.handlenumbers}/>
@@ -151,12 +151,11 @@ class CalcApp extends React.Component {
         <OperatorButton content="-" onClick={this.handleOperators}/>
         <OperatorButton content="*" onClick={this.handleOperators}/>
         <OperatorButton content="/" onClick={this.handleOperators}/>
-
        
-        <button onClick={this.handleEquals}>=</button>
-        <br></br>
+        <button className='clickable-key' onClick={this.handleEquals}>=</button>
 
-        <button onClick={this.handleClear}>CLEAR</button>
+        <button className='clickable-key' onClick={this.handleClear}>CLEAR</button>
+        </div>
 
         <Display
           result={this.state.result}
@@ -165,6 +164,7 @@ class CalcApp extends React.Component {
           firstNumber={this.state.firstNumber}
           secondNumber={this.state.secondNumber}
         />
+
       </div>
     );
   }
@@ -183,12 +183,12 @@ class CalcApp extends React.Component {
 class NumberButton extends React.Component {
   render() {
     return (
-      <div>
-        <button onClick={() => this.props.onClick(this.props.content)}>
+      <React.Fragment>
+      <button className='clickable-key' onClick={() => this.props.onClick(this.props.content)}>
           {this.props.content}
         </button>
         {/*  need to figure out fully why this onClick= {() => works} */}
-      </div>
+        </React.Fragment>
     );
   }
 }
@@ -196,11 +196,11 @@ class NumberButton extends React.Component {
 class OperatorButton extends React.Component {
   render() {
     return (
-      <div>
-        <button onClick={() => this.props.onClick(this.props.content)}>
+      <React.Fragment>
+        <button className='clickable-key' onClick={() => this.props.onClick(this.props.content)}>
           {this.props.content}
         </button>
-      </div>
+        </React.Fragment>
     );
   }
 }
