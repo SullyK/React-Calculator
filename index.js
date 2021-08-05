@@ -146,7 +146,8 @@ class CalcApp extends React.Component {
         />  
     
       <div className = "num-pad">
-      <NumberButton content="e" onClick={this.handlenumbers}/>
+      <button className='clickable-key-special' onClick={this.handleClear}>AC</button>
+
         <NumberButton content="e" onClick={this.handlenumbers}/>
         <NumberButton content="e" onClick={this.handlenumbers}/>
         <OperatorButton content="/" onClick={this.handleOperators}/>
@@ -168,10 +169,7 @@ class CalcApp extends React.Component {
         <OperatorButton content="+" onClick={this.handleOperators}/>          
         <NumberButtonZero content="0" onClick={this.handlenumbers}/>
 
-
-
-
-        <button className='clickable-key-number' onClick={this.handleClear}>AC</button>
+        <NumberButton content="e" onClick={this.handlenumbers}/>
         <button className='clickable-key-operator' onClick={this.handleEquals}>=</button>
 
         </div>
@@ -238,13 +236,12 @@ class Display extends React.Component {
   render() {
     return (
 
-      <div class="results-text">
+      <div className="results-text">
         
         {/* <h2>Current cleanInput array contains {this.props.cleanInput}</h2>
         <h2>Current operand contains {this.props.operand}</h2>
         <h2>Current firstNumber contains {this.props.firstNumber}</h2>
         <h2>Current secondNumber contains {this.props.secondNumber}</h2> */}
-        Fix this:
 {this.props.result}
 </div>
     );
