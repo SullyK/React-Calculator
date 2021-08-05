@@ -65,6 +65,10 @@ body {
 
 .results-text {
   color: whitesmoke;
-  padding-top: 110px;
+  padding-top: 135px;
   border: 1px solid rgb(0, 255, 34);
+  display: flex;
+  font-size: 40px;
+  justify-content: flex-end;
+  align-content: flex-end;
 }

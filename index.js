@@ -237,15 +237,16 @@ class OperatorButton extends React.Component {
 class Display extends React.Component {
   render() {
     return (
+
       <div class="results-text">
         
         {/* <h2>Current cleanInput array contains {this.props.cleanInput}</h2>
         <h2>Current operand contains {this.props.operand}</h2>
         <h2>Current firstNumber contains {this.props.firstNumber}</h2>
         <h2>Current secondNumber contains {this.props.secondNumber}</h2> */}
-        <h1>Fix this:
-{this.props.result}</h1>
-      </div>
+        Fix this:
+{this.props.result}
+</div>
     );
   }
 }
