@@ -146,32 +146,33 @@ class CalcApp extends React.Component {
         />  
     
       <div className = "num-pad">
+      <NumberButton content="e" onClick={this.handlenumbers}/>
+        <NumberButton content="e" onClick={this.handlenumbers}/>
+        <NumberButton content="e" onClick={this.handlenumbers}/>
+        <OperatorButton content="/" onClick={this.handleOperators}/>
+
         <NumberButton content="7" onClick={this.handlenumbers}/>
         <NumberButton content="8" onClick={this.handlenumbers}/>
         <NumberButton content="9" onClick={this.handlenumbers}/>
-        <OperatorButton content="/" onClick={this.handleOperators}/>
+        <OperatorButton content="*" onClick={this.handleOperators}/>
+
+
         <NumberButton content="4" onClick={this.handlenumbers}/>
         <NumberButton content="5" onClick={this.handlenumbers}/>
         <NumberButton content="6" onClick={this.handlenumbers}/>
-        <OperatorButton content="*" onClick={this.handleOperators}/>
+        <OperatorButton content="-" onClick={this.handleOperators}/>
 
         <NumberButton content="1" onClick={this.handlenumbers}/>
         <NumberButton content="2" onClick={this.handlenumbers}/>
         <NumberButton content="3" onClick={this.handlenumbers}/>
-        <OperatorButton content="-" onClick={this.handleOperators}/>
-
-        <NumberButton content="0" onClick={this.handlenumbers}/>
-        <NumberButton content="e" onClick={this.handlenumbers}/>
-        <NumberButton content="e" onClick={this.handlenumbers}/>
         <OperatorButton content="+" onClick={this.handleOperators}/>          
+        <NumberButtonZero content="0" onClick={this.handlenumbers}/>
 
-        <NumberButton content="e" onClick={this.handlenumbers}/>
 
-        <NumberButton content="e" onClick={this.handlenumbers}/>
 
-        <button className='clickable-key' onClick={this.handleEquals}>=</button>
 
-        <button className='clickable-key' onClick={this.handleClear}>CLEAR</button>
+        <button className='clickable-key-number' onClick={this.handleClear}>AC</button>
+        <button className='clickable-key-operator' onClick={this.handleEquals}>=</button>
 
         </div>
 
@@ -208,6 +209,19 @@ class NumberButton extends React.Component {
   }
 }
 
+class NumberButtonZero extends React.Component {
+  render() {
+    return (
+      <React.Fragment>
+      <button className='clickable-key-zero' onClick={() => this.props.onClick(this.props.content)}>
+          {this.props.content}
+        </button>
+        {/*  need to figure out fully why this onClick= {() => works} */}
+        </React.Fragment>
+    );
+  }
+}
+
 class OperatorButton extends React.Component {
   render() {
     return (
@@ -229,7 +243,8 @@ class Display extends React.Component {
         <h2>Current operand contains {this.props.operand}</h2>
         <h2>Current firstNumber contains {this.props.firstNumber}</h2>
         <h2>Current secondNumber contains {this.props.secondNumber}</h2> */}
-        <h1>Display RESULT: {this.props.result}</h1>
+        <h1>Fix this:
+{this.props.result}</h1>
       </div>
     );
   }

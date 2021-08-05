@@ -38,9 +38,27 @@ body {
   background-color: #ff9f0a;
   border-radius: 300px;
   border-color: white;
-  border: 1px solid black;
+  border: 2px solid black;
   height: 50px;
   width: 50px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.clickable-key-zero {
+  padding-right: 66px;
+
+  /* display: flex;
+  align-content: center;
+  justify-content: start; */
+
+  color: white;
+  font-size: 20px;
+  background-color: #333333;
+  border-radius: 300px;
+  border-color: black;
+  height: 50px;
+  width: 110px;
   margin-right: 5px;
   margin-left: 5px;
 }
