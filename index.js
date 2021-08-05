@@ -135,35 +135,50 @@ class CalcApp extends React.Component {
         <br></br>
 
         {/* Want to put this into a keypad but can't seem to understand how */}
+      
 <div className = "calc-skeleton">
-        <NumberButton content="1" onClick={this.handlenumbers}/>
-        <NumberButton content="2" onClick={this.handlenumbers}/>
-        <NumberButton content="3" onClick={this.handlenumbers}/>
-        <NumberButton content="4" onClick={this.handlenumbers}/>
-        <NumberButton content="5" onClick={this.handlenumbers}/>
-        <NumberButton content="6" onClick={this.handlenumbers}/>
-        <NumberButton content="7" onClick={this.handlenumbers}/>
-        <NumberButton content="8" onClick={this.handlenumbers}/>
-        <NumberButton content="9" onClick={this.handlenumbers}/>
-        <NumberButton content="0" onClick={this.handlenumbers}/>
-
-        <OperatorButton content="+" onClick={this.handleOperators}/>          
-        <OperatorButton content="-" onClick={this.handleOperators}/>
-        <OperatorButton content="*" onClick={this.handleOperators}/>
-        <OperatorButton content="/" onClick={this.handleOperators}/>
-       
-        <button className='clickable-key' onClick={this.handleEquals}>=</button>
-
-        <button className='clickable-key' onClick={this.handleClear}>CLEAR</button>
-        </div>
-
-        <Display
+<Display
           result={this.state.result}
           operand={this.state.operand}
           cleanInput={this.state.cleanInput}
           firstNumber={this.state.firstNumber}
           secondNumber={this.state.secondNumber}
-        />
+        />  
+    
+      <div className = "num-pad">
+        <NumberButton content="7" onClick={this.handlenumbers}/>
+        <NumberButton content="8" onClick={this.handlenumbers}/>
+        <NumberButton content="9" onClick={this.handlenumbers}/>
+        <OperatorButton content="/" onClick={this.handleOperators}/>
+        <NumberButton content="4" onClick={this.handlenumbers}/>
+        <NumberButton content="5" onClick={this.handlenumbers}/>
+        <NumberButton content="6" onClick={this.handlenumbers}/>
+        <OperatorButton content="*" onClick={this.handleOperators}/>
+
+        <NumberButton content="1" onClick={this.handlenumbers}/>
+        <NumberButton content="2" onClick={this.handlenumbers}/>
+        <NumberButton content="3" onClick={this.handlenumbers}/>
+        <OperatorButton content="-" onClick={this.handleOperators}/>
+
+        <NumberButton content="0" onClick={this.handlenumbers}/>
+        <NumberButton content="e" onClick={this.handlenumbers}/>
+        <NumberButton content="e" onClick={this.handlenumbers}/>
+        <OperatorButton content="+" onClick={this.handleOperators}/>          
+
+        <NumberButton content="e" onClick={this.handlenumbers}/>
+
+        <NumberButton content="e" onClick={this.handlenumbers}/>
+
+        <button className='clickable-key' onClick={this.handleEquals}>=</button>
+
+        <button className='clickable-key' onClick={this.handleClear}>CLEAR</button>
+
+        </div>
+
+       
+        </div>
+
+       
 
       </div>
     );
@@ -184,7 +199,7 @@ class NumberButton extends React.Component {
   render() {
     return (
       <React.Fragment>
-      <button className='clickable-key' onClick={() => this.props.onClick(this.props.content)}>
+      <button className='clickable-key-number' onClick={() => this.props.onClick(this.props.content)}>
           {this.props.content}
         </button>
         {/*  need to figure out fully why this onClick= {() => works} */}
@@ -197,7 +212,7 @@ class OperatorButton extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <button className='clickable-key' onClick={() => this.props.onClick(this.props.content)}>
+        <button className='clickable-key-operator' onClick={() => this.props.onClick(this.props.content)}>
           {this.props.content}
         </button>
         </React.Fragment>
@@ -208,11 +223,12 @@ class OperatorButton extends React.Component {
 class Display extends React.Component {
   render() {
     return (
-      <div>
-        <h2>Current cleanInput array contains {this.props.cleanInput}</h2>
+      <div class="results-text">
+        
+        {/* <h2>Current cleanInput array contains {this.props.cleanInput}</h2>
         <h2>Current operand contains {this.props.operand}</h2>
         <h2>Current firstNumber contains {this.props.firstNumber}</h2>
-        <h2>Current secondNumber contains {this.props.secondNumber}</h2>
+        <h2>Current secondNumber contains {this.props.secondNumber}</h2> */}
         <h1>Display RESULT: {this.props.result}</h1>
       </div>
     );
