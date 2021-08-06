@@ -15,9 +15,9 @@ class CalcApp extends React.Component {
     };
 
     this.handleEquals = this.handleEquals.bind(this);
-    this.handleClear = this.handleClear.bind(this);
     this.handlenumbers = this.handlenumbers.bind(this);
     this.handleOperators = this.handleOperators.bind(this);
+    this.handleSpecials = this.handleSpecials.bind(this);
   }
 
   handlenumbers = (content) => {
@@ -118,15 +118,43 @@ class CalcApp extends React.Component {
     }
   };
 
-  handleClear() {
-    this.setState((state) => ({
-      cleanInput: [],
-      firstNumber: "",
-      secondNumber: "",
-      result: "",
-      operand: "",
-    }));
+
+
+
+  handleSpecials = (content) =>{
+     if(content === "AC"){
+      this.setState((state) => ({
+        cleanInput: [],
+        firstNumber: "",
+        secondNumber: "",
+        result: "",
+        operand: "",
+      }));
+     }
+
+    //  if(content === ""){
+    //   this.setState((state) => ({
+    //     cleanInput: [],
+    //     firstNumber: "",
+    //     secondNumber: "",
+    //     result: "",
+    //     operand: "",
+    //   }));
+    //  }
+
+     
   }
+
+
+  // handleClear() {
+  //   this.setState((state) => ({
+  //     cleanInput: [],
+  //     firstNumber: "",
+  //     secondNumber: "",
+  //     result: "",
+  //     operand: "",
+  //   }));
+  // }
 
   render() {
     return (
@@ -146,7 +174,7 @@ class CalcApp extends React.Component {
         />  
     
       <div className = "num-pad">
-      <button className='clickable-key-special' onClick={this.handleClear}>AC</button>
+      <SpecialButton content="AC" onClick={this.handleSpecials}/>
 
         <NumberButton content="e" onClick={this.handlenumbers}/>
         <NumberButton content="e" onClick={this.handlenumbers}/>
@@ -194,6 +222,22 @@ class CalcApp extends React.Component {
 //   }
 // }
 
+
+class SpecialButton extends React.Component {
+  render() {
+    return (
+      <React.Fragment>
+      <button className='clickable-key-special' onClick={() => this.props.onClick(this.props.content)}>
+          {this.props.content}
+        </button>
+        {/*  need to figure out fully why this onClick= {() => works} */}
+        </React.Fragment>
+    );
+  }
+}
+
+
+
 class NumberButton extends React.Component {
   render() {
     return (
@@ -234,8 +278,39 @@ class OperatorButton extends React.Component {
 
 class Display extends React.Component {
   render() {
+    if(this.props.result === '' && this.props.cleanInput == '' && this.props.firstNumber === '' && this.props.secondNumber ===''){
+      return (
+
+      
+        <div className="results-text">
+          
+          {/* <h2>Current cleanInput array contains {this.props.cleanInput}</h2>
+          <h2>Current operand contains {this.props.operand}</h2>
+          <h2>Current firstNumber contains {this.props.firstNumber}</h2>
+          <h2>Current secondNumber contains {this.props.secondNumber}</h2> */}
+  0
+  </div>
+      );
+    }
+
+     if( this.props.cleanInput !== ''){
+      return (
+
+      
+        <div className="results-text">
+          
+          {/* <h2>Current cleanInput array contains {this.props.cleanInput}</h2>
+          <h2>Current operand contains {this.props.operand}</h2>
+          <h2>Current firstNumber contains {this.props.firstNumber}</h2>
+          <h2>Current secondNumber contains {this.props.secondNumber}</h2> */}
+  {this.props.cleanInput}
+
+  </div>
+      );
+    }
     return (
 
+      
       <div className="results-text">
         
         {/* <h2>Current cleanInput array contains {this.props.cleanInput}</h2>
