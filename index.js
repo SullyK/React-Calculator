@@ -7,6 +7,7 @@ class CalcApp extends React.Component {
     super(props);
     this.state = {
       cleanInput: [],
+      holdOnOperatorPress: "",
       firstNumber: "",
       secondNumber: "",
       result: "",
@@ -21,6 +22,9 @@ class CalcApp extends React.Component {
   }
 
   handlenumbers = (content) => {
+    this.setState((state) => ({
+      holdOnOperatorPress: "",
+    }))
     if (content === "1") {
       this.setState((state) => ({ cleanInput: state.cleanInput.concat("1") }));
     }
@@ -89,6 +93,7 @@ class CalcApp extends React.Component {
       this.setState((state) => ({
         operand: "+",
         firstNumber: state.cleanInput.join(""),
+        holdOnOperatorPress: state.cleanInput.join(""),
         cleanInput: [],
       }));
     }
@@ -132,29 +137,9 @@ class CalcApp extends React.Component {
       }));
      }
 
-    //  if(content === ""){
-    //   this.setState((state) => ({
-    //     cleanInput: [],
-    //     firstNumber: "",
-    //     secondNumber: "",
-    //     result: "",
-    //     operand: "",
-    //   }));
-    //  }
 
-     
   }
 
-
-  // handleClear() {
-  //   this.setState((state) => ({
-  //     cleanInput: [],
-  //     firstNumber: "",
-  //     secondNumber: "",
-  //     result: "",
-  //     operand: "",
-  //   }));
-  // }
 
   render() {
     return (
@@ -171,6 +156,7 @@ class CalcApp extends React.Component {
           cleanInput={this.state.cleanInput}
           firstNumber={this.state.firstNumber}
           secondNumber={this.state.secondNumber}
+          holdOnOperatorPress ={this.state.holdOnOperatorPress}
         />  
     
       <div className = "num-pad">
@@ -283,43 +269,50 @@ class Display extends React.Component {
 
       
         <div className="results-text">
-          
-          {/* <h2>Current cleanInput array contains {this.props.cleanInput}</h2>
-          <h2>Current operand contains {this.props.operand}</h2>
-          <h2>Current firstNumber contains {this.props.firstNumber}</h2>
-          <h2>Current secondNumber contains {this.props.secondNumber}</h2> */}
+
   0
   </div>
       );
     }
 
-     if( this.props.cleanInput !== ''){
-      return (
-
-      
-        <div className="results-text">
-          
-          {/* <h2>Current cleanInput array contains {this.props.cleanInput}</h2>
-          <h2>Current operand contains {this.props.operand}</h2>
-          <h2>Current firstNumber contains {this.props.firstNumber}</h2>
-          <h2>Current secondNumber contains {this.props.secondNumber}</h2> */}
-  {this.props.cleanInput}
-
-  </div>
-      );
-    }
+    else if(this.props.firstNumber != '' && this.props.secondNumber != '' && 
+    this.props.operand != '' && this.props.result != '') {
     return (
-
-      
-      <div className="results-text">
+<div className="results-text">
         
         {/* <h2>Current cleanInput array contains {this.props.cleanInput}</h2>
         <h2>Current operand contains {this.props.operand}</h2>
         <h2>Current firstNumber contains {this.props.firstNumber}</h2>
         <h2>Current secondNumber contains {this.props.secondNumber}</h2> */}
+
 {this.props.result}
 </div>
     );
+      }
+      
+     else if( this.props.holdOnOperatorPress === '' && this.props.cleanInput != ''){
+      return (
+
+    
+        <div className="results-text">
+          
+  {this.props.cleanInput}
+
+  </div>
+      );
+    }
+
+    else if( this.props.holdOnOperatorPress !== ""){
+      return (
+ <div className="results-text">
+{this.props.holdOnOperatorPress}
+
+
+  </div>
+      );
+    }
+
+
   }
 }
 
