@@ -102,6 +102,7 @@ class CalcApp extends React.Component {
       this.setState((state) => ({
         operand: "-",
         firstNumber: state.cleanInput.join(""),
+        holdOnOperatorPress: state.cleanInput.join(""),
         cleanInput: [],
       }));
     }
@@ -110,6 +111,7 @@ class CalcApp extends React.Component {
       this.setState((state) => ({
         operand: "*",
         firstNumber: state.cleanInput.join(""),
+        holdOnOperatorPress: state.cleanInput.join(""),
         cleanInput: [],
       }));
     }
@@ -118,6 +120,7 @@ class CalcApp extends React.Component {
       this.setState((state) => ({
         operand: "/",
         firstNumber: state.cleanInput.join(""),
+        holdOnOperatorPress: state.cleanInput.join(""),
         cleanInput: [],
       }));
     }
