@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import './index.css';
+import "./index.css";
 
 class CalcApp extends React.Component {
   constructor(props) {
@@ -13,6 +13,7 @@ class CalcApp extends React.Component {
       result: "",
       operand: "",
       numberPressed: "",
+      trigger: "",
     };
 
     this.handleEquals = this.handleEquals.bind(this);
@@ -24,7 +25,7 @@ class CalcApp extends React.Component {
   handlenumbers = (content) => {
     this.setState((state) => ({
       holdOnOperatorPress: "",
-    }))
+    }));
     if (content === "1") {
       this.setState((state) => ({ cleanInput: state.cleanInput.concat("1") }));
     }
@@ -65,6 +66,7 @@ class CalcApp extends React.Component {
       this.setState((state) => ({
         result: +state.firstNumber + +state.secondNumber,
         userInput: [],
+        trigger: "",
       }));
     }
     if (this.state.operand === "/") {
@@ -89,12 +91,22 @@ class CalcApp extends React.Component {
   }
 
   handleOperators = (content) => {
-    if (content === "+") {
+    if (content === "+" && this.state.result === "") {
       this.setState((state) => ({
         operand: "+",
         firstNumber: state.cleanInput.join(""),
         holdOnOperatorPress: state.cleanInput.join(""),
         cleanInput: [],
+      }));
+    }
+
+    if (content === "+" && this.state.result !== "") {
+      this.setState((state) => ({
+        operand: "+",
+        firstNumber: this.state.result,
+        holdOnOperatorPress: state.cleanInput.join(""),
+        cleanInput: [],
+        trigger: "okay",
       }));
     }
 
@@ -126,11 +138,8 @@ class CalcApp extends React.Component {
     }
   };
 
-
-
-
-  handleSpecials = (content) =>{
-     if(content === "AC"){
+  handleSpecials = (content) => {
+    if (content === "AC") {
       this.setState((state) => ({
         cleanInput: [],
         firstNumber: "",
@@ -138,11 +147,8 @@ class CalcApp extends React.Component {
         result: "",
         operand: "",
       }));
-     }
-
-
-  }
-
+    }
+  };
 
   render() {
     return (
@@ -151,51 +157,50 @@ class CalcApp extends React.Component {
         <br></br>
 
         {/* Want to put this into a keypad but can't seem to understand how */}
-      
-<div className = "calc-skeleton">
-<Display
-          result={this.state.result}
-          operand={this.state.operand}
-          cleanInput={this.state.cleanInput}
-          firstNumber={this.state.firstNumber}
-          secondNumber={this.state.secondNumber}
-          holdOnOperatorPress ={this.state.holdOnOperatorPress}
-        />  
-    
-      <div className = "num-pad">
-      <SpecialButton content="AC" onClick={this.handleSpecials}/>
 
-        <NumberButton content="e" onClick={this.handlenumbers}/>
-        <NumberButton content="e" onClick={this.handlenumbers}/>
-        <OperatorButton content="/" onClick={this.handleOperators}/>
+        <div className="calc-skeleton">
+          <Display
+            result={this.state.result}
+            operand={this.state.operand}
+            cleanInput={this.state.cleanInput}
+            firstNumber={this.state.firstNumber}
+            secondNumber={this.state.secondNumber}
+            holdOnOperatorPress={this.state.holdOnOperatorPress}
+            trigger={this.state.trigger}
+          />
 
-        <NumberButton content="7" onClick={this.handlenumbers}/>
-        <NumberButton content="8" onClick={this.handlenumbers}/>
-        <NumberButton content="9" onClick={this.handlenumbers}/>
-        <OperatorButton content="*" onClick={this.handleOperators}/>
+          <div className="num-pad">
+            <SpecialButton content="AC" onClick={this.handleSpecials} />
 
+            <NumberButton content="e" onClick={this.handlenumbers} />
+            <NumberButton content="e" onClick={this.handlenumbers} />
+            <OperatorButton content="/" onClick={this.handleOperators} />
 
-        <NumberButton content="4" onClick={this.handlenumbers}/>
-        <NumberButton content="5" onClick={this.handlenumbers}/>
-        <NumberButton content="6" onClick={this.handlenumbers}/>
-        <OperatorButton content="-" onClick={this.handleOperators}/>
+            <NumberButton content="7" onClick={this.handlenumbers} />
+            <NumberButton content="8" onClick={this.handlenumbers} />
+            <NumberButton content="9" onClick={this.handlenumbers} />
+            <OperatorButton content="*" onClick={this.handleOperators} />
 
-        <NumberButton content="1" onClick={this.handlenumbers}/>
-        <NumberButton content="2" onClick={this.handlenumbers}/>
-        <NumberButton content="3" onClick={this.handlenumbers}/>
-        <OperatorButton content="+" onClick={this.handleOperators}/>          
-        <NumberButtonZero content="0" onClick={this.handlenumbers}/>
+            <NumberButton content="4" onClick={this.handlenumbers} />
+            <NumberButton content="5" onClick={this.handlenumbers} />
+            <NumberButton content="6" onClick={this.handlenumbers} />
+            <OperatorButton content="-" onClick={this.handleOperators} />
 
-        <NumberButton content="e" onClick={this.handlenumbers}/>
-        <button className='clickable-key-operator' onClick={this.handleEquals}>=</button>
+            <NumberButton content="1" onClick={this.handlenumbers} />
+            <NumberButton content="2" onClick={this.handlenumbers} />
+            <NumberButton content="3" onClick={this.handlenumbers} />
+            <OperatorButton content="+" onClick={this.handleOperators} />
+            <NumberButtonZero content="0" onClick={this.handlenumbers} />
 
+            <NumberButton content="e" onClick={this.handlenumbers} />
+            <button
+              className="clickable-key-operator"
+              onClick={this.handleEquals}
+            >
+              =
+            </button>
+          </div>
         </div>
-
-       
-        </div>
-
-       
-
       </div>
     );
   }
@@ -211,31 +216,34 @@ class CalcApp extends React.Component {
 //   }
 // }
 
-
 class SpecialButton extends React.Component {
   render() {
     return (
       <React.Fragment>
-      <button className='clickable-key-special' onClick={() => this.props.onClick(this.props.content)}>
+        <button
+          className="clickable-key-special"
+          onClick={() => this.props.onClick(this.props.content)}
+        >
           {this.props.content}
         </button>
         {/*  need to figure out fully why this onClick= {() => works} */}
-        </React.Fragment>
+      </React.Fragment>
     );
   }
 }
-
-
 
 class NumberButton extends React.Component {
   render() {
     return (
       <React.Fragment>
-      <button className='clickable-key-number' onClick={() => this.props.onClick(this.props.content)}>
+        <button
+          className="clickable-key-number"
+          onClick={() => this.props.onClick(this.props.content)}
+        >
           {this.props.content}
         </button>
         {/*  need to figure out fully why this onClick= {() => works} */}
-        </React.Fragment>
+      </React.Fragment>
     );
   }
 }
@@ -244,11 +252,14 @@ class NumberButtonZero extends React.Component {
   render() {
     return (
       <React.Fragment>
-      <button className='clickable-key-zero' onClick={() => this.props.onClick(this.props.content)}>
+        <button
+          className="clickable-key-zero"
+          onClick={() => this.props.onClick(this.props.content)}
+        >
           {this.props.content}
         </button>
         {/*  need to figure out fully why this onClick= {() => works} */}
-        </React.Fragment>
+      </React.Fragment>
     );
   }
 }
@@ -257,65 +268,53 @@ class OperatorButton extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <button className='clickable-key-operator' onClick={() => this.props.onClick(this.props.content)}>
+        <button
+          className="clickable-key-operator"
+          onClick={() => this.props.onClick(this.props.content)}
+        >
           {this.props.content}
         </button>
-        </React.Fragment>
+      </React.Fragment>
     );
   }
 }
 
 class Display extends React.Component {
   render() {
-    if(this.props.result === '' && this.props.cleanInput == '' && this.props.firstNumber === '' && this.props.secondNumber ===''){
+    if (
+      this.props.holdOnOperatorPress == "" &&
+      this.props.firstNumber != "" &&
+      this.props.secondNumber != "" &&
+      this.props.operand != "" &&
+      this.props.cleanInput != "" &&
+      this.props.trigger != ""
+    ) {
+      return <div className="results-text">{this.props.cleanInput}</div>;
+    } else if (
+      this.props.result === "" &&
+      this.props.cleanInput == "" &&
+      this.props.firstNumber === "" &&
+      this.props.secondNumber === "" &&
+      this.props.trigger == ""
+    ) {
+      return <div className="results-text">0</div>;
+    } else if (
+      this.props.firstNumber != "" &&
+      this.props.secondNumber != "" &&
+      this.props.operand != "" &&
+      this.props.result != ""
+    ) {
+      return <div className="results-text">{this.props.result}</div>;
+    } else if (
+      this.props.holdOnOperatorPress === "" &&
+      this.props.cleanInput != ""
+    ) {
+      return <div className="results-text">{this.props.cleanInput}</div>;
+    } else if (this.props.holdOnOperatorPress !== "") {
       return (
-
-      
-        <div className="results-text">
-
-  0
-  </div>
+        <div className="results-text">{this.props.holdOnOperatorPress}</div>
       );
     }
-
-    else if(this.props.firstNumber != '' && this.props.secondNumber != '' && 
-    this.props.operand != '' && this.props.result != '') {
-    return (
-<div className="results-text">
-        
-        {/* <h2>Current cleanInput array contains {this.props.cleanInput}</h2>
-        <h2>Current operand contains {this.props.operand}</h2>
-        <h2>Current firstNumber contains {this.props.firstNumber}</h2>
-        <h2>Current secondNumber contains {this.props.secondNumber}</h2> */}
-
-{this.props.result}
-</div>
-    );
-      }
-      
-     else if( this.props.holdOnOperatorPress === '' && this.props.cleanInput != ''){
-      return (
-
-    
-        <div className="results-text">
-          
-  {this.props.cleanInput}
-
-  </div>
-      );
-    }
-
-    else if( this.props.holdOnOperatorPress !== ""){
-      return (
- <div className="results-text">
-{this.props.holdOnOperatorPress}
-
-
-  </div>
-      );
-    }
-
-
   }
 }
 
