@@ -1,0 +1,91 @@
+body {
+  font: 14px "Helvetica ", Futura, sans-serif;
+  margin: 20px;
+}
+
+.calc-skeleton {
+  width: 260px;
+  height: 450px;
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: black;
+}
+
+.num-pad {
+  display: flex;
+  justify-content: flex-start;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  padding-left: 7px;
+  border: 1px solid pink;
+}
+
+.clickable-key-number {
+  color: white;
+  font-size: 25px;
+  background-color: #333333;
+  border-radius: 300px;
+  border-color: black;
+  height: 50px;
+  width: 50px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+.clickable-key-number:focus {
+  opacity: 0.5;
+  transition: all 0.2s ease;
+}
+
+.clickable-key-operator {
+  color: white;
+  font-size: 25px;
+  background-color: #ff9f0a;
+  border-radius: 300px;
+  border-color: white;
+  border: 2px solid black;
+  height: 50px;
+  width: 50px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.clickable-key-special {
+  color: black;
+  font-size: 20px;
+  background-color: #a5a5a5;
+  border-radius: 300px;
+  border-color: white;
+  border: 2px solid black;
+  height: 50px;
+  width: 50px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.clickable-key-zero {
+  padding-right: 66px;
+
+  /* display: flex;
+  align-content: center;
+  justify-content: start; */
+
+  color: white;
+  font-size: 25px;
+  background-color: #333333;
+  border-radius: 300px;
+  border-color: black;
+  height: 50px;
+  width: 110px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.results-text {
+  color: whitesmoke;
+  padding-top: 135px;
+  border: 1px solid rgb(0, 255, 34);
+  display: flex;
+  font-size: 40px;
+  justify-content: flex-end;
+  align-content: flex-end;
+}
