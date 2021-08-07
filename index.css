@@ -31,13 +31,6 @@ body {
   margin-right: 5px;
   margin-left: 5px;
 }
-.clickable-key-number:focus {
-  opacity: 0.5;
-  transition: all 0.2s ease-out;
-}
-.clickable-key-number:active {
-  opacit
-}
 
 .clickable-key-operator {
   color: white;
