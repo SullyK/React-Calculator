@@ -58,20 +58,23 @@ class CalcApp extends React.Component {
     if (content === "0") {
       this.setState((state) => ({ cleanInput: state.cleanInput.concat("0") }));
     }
+    if (content === ".") {
+      this.setState((state) => ({ cleanInput: state.cleanInput.concat(".") }));
+    }
   };
 
   handleEquals() {
     this.setState((state) => ({ secondNumber: state.cleanInput.join("") }));
     if (this.state.operand === "+") {
       this.setState((state) => ({
-        result: +state.firstNumber + +state.secondNumber,
+        result: (+state.firstNumber + +state.secondNumber).toPrecision(8), //Maybe take this out
         userInput: [],
         trigger: "",
       }));
     }
     if (this.state.operand === "/") {
       this.setState((state) => ({
-        result: +state.firstNumber / +state.secondNumber,
+        result: (+state.firstNumber / +state.secondNumber) * (1).toFixed(8), //Maybe take this out
         userInput: [],
         trigger: "",
       }));
@@ -227,7 +230,7 @@ class CalcApp extends React.Component {
             <OperatorButton content="+" onClick={this.handleOperators} />
             <NumberButtonZero content="0" onClick={this.handlenumbers} />
 
-            <NumberButton content="e" onClick={this.handlenumbers} />
+            <NumberButton content="." onClick={this.handlenumbers} />
             <button
               className="clickable-key-operator"
               onClick={this.handleEquals}
