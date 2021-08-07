@@ -73,12 +73,14 @@ class CalcApp extends React.Component {
       this.setState((state) => ({
         result: +state.firstNumber / +state.secondNumber,
         userInput: [],
+        trigger: "",
       }));
     }
     if (this.state.operand === "*") {
       this.setState((state) => ({
         result: +state.firstNumber * +state.secondNumber,
         userInput: [],
+        trigger: "",
       }));
     }
 
@@ -86,6 +88,7 @@ class CalcApp extends React.Component {
       this.setState((state) => ({
         result: +state.firstNumber - +state.secondNumber,
         userInput: [],
+        trigger: "",
       }));
     }
   }
@@ -110,7 +113,7 @@ class CalcApp extends React.Component {
       }));
     }
 
-    if (content === "-") {
+    if (content === "-" && this.state.result === "") {
       this.setState((state) => ({
         operand: "-",
         firstNumber: state.cleanInput.join(""),
@@ -119,7 +122,17 @@ class CalcApp extends React.Component {
       }));
     }
 
-    if (content === "*") {
+    if (content === "-" && this.state.result !== "") {
+      this.setState((state) => ({
+        operand: "-",
+        firstNumber: this.state.result,
+        holdOnOperatorPress: state.cleanInput.join(""),
+        cleanInput: [],
+        trigger: "okay",
+      }));
+    }
+
+    if (content === "*" && this.state.result === "") {
       this.setState((state) => ({
         operand: "*",
         firstNumber: state.cleanInput.join(""),
@@ -128,12 +141,32 @@ class CalcApp extends React.Component {
       }));
     }
 
-    if (content === "/") {
+    if (content === "*" && this.state.result !== "") {
+      this.setState((state) => ({
+        operand: "*",
+        firstNumber: this.state.result,
+        holdOnOperatorPress: state.cleanInput.join(""),
+        cleanInput: [],
+        trigger: "okay",
+      }));
+    }
+
+    if (content === "/" && this.state.result === "") {
       this.setState((state) => ({
         operand: "/",
         firstNumber: state.cleanInput.join(""),
         holdOnOperatorPress: state.cleanInput.join(""),
         cleanInput: [],
+      }));
+    }
+
+    if (content === "/" && this.state.result !== "") {
+      this.setState((state) => ({
+        operand: "/",
+        firstNumber: this.state.result,
+        holdOnOperatorPress: state.cleanInput.join(""),
+        cleanInput: [],
+        trigger: "okay",
       }));
     }
   };
@@ -146,6 +179,8 @@ class CalcApp extends React.Component {
         secondNumber: "",
         result: "",
         operand: "",
+        trigger: "",
+        holdOnOperatorPress: "",
       }));
     }
   };
