@@ -316,7 +316,9 @@ class OperatorButton extends React.Component {
 
 class Display extends React.Component {
   render() {
-    if (
+    if (this.props.result == "0") {
+      return <div className="results-text">0</div>;
+    } else if (
       this.props.holdOnOperatorPress == "" &&
       this.props.firstNumber != "" &&
       this.props.secondNumber != "" &&
