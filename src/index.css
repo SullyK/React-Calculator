@@ -1,8 +1,18 @@
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 200;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
+}
 body {
-  font: 14px "Helvetica ", Futura, sans-serif;
+  font: 14px "San Francisco ", Futura, sans-serif;
   margin: 20px;
 }
 
+.center-all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .calc-skeleton {
   width: 260px;
   height: 450px;
@@ -82,10 +92,18 @@ body {
 
 .results-text {
   color: whitesmoke;
-  padding-top: 135px;
+  padding-top: 110px;
   border: 1px solid rgb(0, 255, 34);
   display: flex;
   font-size: 40px;
   justify-content: flex-end;
   align-content: flex-end;
+}
+
+.time-top-left {
+  color: white;
+  font-size: 9px;
+
+  padding-left: 13px;
+  padding-top: 2px;
 }

@@ -190,53 +190,56 @@ class CalcApp extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Calculator</h1>
-        <br></br>
+      <div className="center-all">
+        <div>
+          <h1 className="center-all">Calculator</h1>
+          <br></br>
 
-        {/* Want to put this into a keypad but can't seem to understand how */}
+          {/* Want to put this into a keypad but can't seem to understand how */}
 
-        <div className="calc-skeleton">
-          <Display
-            result={this.state.result}
-            operand={this.state.operand}
-            cleanInput={this.state.cleanInput}
-            firstNumber={this.state.firstNumber}
-            secondNumber={this.state.secondNumber}
-            holdOnOperatorPress={this.state.holdOnOperatorPress}
-            trigger={this.state.trigger}
-          />
+          <div className="calc-skeleton">
+            <Clock />
+            <Display
+              result={this.state.result}
+              operand={this.state.operand}
+              cleanInput={this.state.cleanInput}
+              firstNumber={this.state.firstNumber}
+              secondNumber={this.state.secondNumber}
+              holdOnOperatorPress={this.state.holdOnOperatorPress}
+              trigger={this.state.trigger}
+            />
 
-          <div className="num-pad">
-            <SpecialButton content="AC" onClick={this.handleSpecials} />
+            <div className="num-pad">
+              <SpecialButton content="AC" onClick={this.handleSpecials} />
 
-            <NumberButton content="e" onClick={this.handlenumbers} />
-            <NumberButton content="e" onClick={this.handlenumbers} />
-            <OperatorButton content="/" onClick={this.handleOperators} />
+              <NumberButton content="e" onClick={this.handlenumbers} />
+              <NumberButton content="e" onClick={this.handlenumbers} />
+              <OperatorButton content="/" onClick={this.handleOperators} />
 
-            <NumberButton content="7" onClick={this.handlenumbers} />
-            <NumberButton content="8" onClick={this.handlenumbers} />
-            <NumberButton content="9" onClick={this.handlenumbers} />
-            <OperatorButton content="*" onClick={this.handleOperators} />
+              <NumberButton content="7" onClick={this.handlenumbers} />
+              <NumberButton content="8" onClick={this.handlenumbers} />
+              <NumberButton content="9" onClick={this.handlenumbers} />
+              <OperatorButton content="*" onClick={this.handleOperators} />
 
-            <NumberButton content="4" onClick={this.handlenumbers} />
-            <NumberButton content="5" onClick={this.handlenumbers} />
-            <NumberButton content="6" onClick={this.handlenumbers} />
-            <OperatorButton content="-" onClick={this.handleOperators} />
+              <NumberButton content="4" onClick={this.handlenumbers} />
+              <NumberButton content="5" onClick={this.handlenumbers} />
+              <NumberButton content="6" onClick={this.handlenumbers} />
+              <OperatorButton content="-" onClick={this.handleOperators} />
 
-            <NumberButton content="1" onClick={this.handlenumbers} />
-            <NumberButton content="2" onClick={this.handlenumbers} />
-            <NumberButton content="3" onClick={this.handlenumbers} />
-            <OperatorButton content="+" onClick={this.handleOperators} />
-            <NumberButtonZero content="0" onClick={this.handlenumbers} />
+              <NumberButton content="1" onClick={this.handlenumbers} />
+              <NumberButton content="2" onClick={this.handlenumbers} />
+              <NumberButton content="3" onClick={this.handlenumbers} />
+              <OperatorButton content="+" onClick={this.handleOperators} />
+              <NumberButtonZero content="0" onClick={this.handlenumbers} />
 
-            <NumberButton content="." onClick={this.handlenumbers} />
-            <button
-              className="clickable-key-operator"
-              onClick={this.handleEquals}
-            >
-              =
-            </button>
+              <NumberButton content="." onClick={this.handlenumbers} />
+              <button
+                className="clickable-key-operator"
+                onClick={this.handleEquals}
+              >
+                =
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -253,6 +256,37 @@ class CalcApp extends React.Component {
 //     )
 //   }
 // }
+
+class Clock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      time: new Date(),
+      hour: "",
+      mins: "",
+    };
+  }
+  componentDidMount() {
+    this.interval = setInterval(() => this.tick(), 1000);
+  }
+  tick() {
+    this.setState((state) => ({
+      time: new Date(),
+    }));
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  render() {
+    return (
+      <div className="time-top-left">
+        {this.state.time.getHours()}:{this.state.time.getMinutes()}
+      </div>
+    );
+  }
+}
 
 class SpecialButton extends React.Component {
   render() {
