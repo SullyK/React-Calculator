@@ -14,6 +14,7 @@ class CalcApp extends React.Component {
       operand: "",
       numberPressed: "",
       trigger: "",
+      negated: "no",
     };
 
     this.handleEquals = this.handleEquals.bind(this);
@@ -186,6 +187,26 @@ class CalcApp extends React.Component {
         holdOnOperatorPress: "",
       }));
     }
+
+    if (content === "⁺∕₋") {
+      if (this.state.negated == "no") {
+        let newArr = this.state.cleanInput;
+        newArr.unshift("-");
+
+        this.setState((state) => ({
+          negated: "yes",
+          cleanInput: newArr,
+        }));
+      } else {
+        let newArr = this.state.cleanInput;
+        newArr.splice(0, 1);
+
+        this.setState((state) => ({
+          negated: "no",
+          cleanInput: newArr,
+        }));
+      }
+    }
   };
 
   render() {
@@ -212,7 +233,10 @@ class CalcApp extends React.Component {
             <div className="num-pad">
               <SpecialButton content="AC" onClick={this.handleSpecials} />
 
-              <NumberButton content="e" onClick={this.handlenumbers} />
+              <SpecialButtonBigger
+                content="⁺∕₋"
+                onClick={this.handleSpecials}
+              />
               <NumberButton content="e" onClick={this.handlenumbers} />
               <OperatorButton content="/" onClick={this.handleOperators} />
 
@@ -280,11 +304,19 @@ class Clock extends React.Component {
   }
 
   render() {
-    return (
-      <div className="time-top-left">
-        {this.state.time.getHours()}:{this.state.time.getMinutes()}
-      </div>
-    );
+    if (this.state.time.getMinutes() >= 10) {
+      return (
+        <div className="time-top-left">
+          {this.state.time.getHours()}:{this.state.time.getMinutes()}
+        </div>
+      );
+    } else {
+      return (
+        <div className="time-top-left">
+          {this.state.time.getHours()}:0{this.state.time.getMinutes()}
+        </div>
+      );
+    }
   }
 }
 
@@ -294,6 +326,22 @@ class SpecialButton extends React.Component {
       <React.Fragment>
         <button
           className="clickable-key-special"
+          onClick={() => this.props.onClick(this.props.content)}
+        >
+          {this.props.content}
+        </button>
+        {/*  need to figure out fully why this onClick= {() => works} */}
+      </React.Fragment>
+    );
+  }
+}
+
+class SpecialButtonBigger extends React.Component {
+  render() {
+    return (
+      <React.Fragment>
+        <button
+          className="clickable-key-special-bigger"
           onClick={() => this.props.onClick(this.props.content)}
         >
           {this.props.content}
