@@ -64,46 +64,6 @@ class CalcApp extends React.Component {
     }
   };
 
-  handleEquals() {
-    this.setState((state) => ({ secondNumber: state.cleanInput.join("") }));
-
-    if (
-      this.state.operand === "" ||
-      this.state.firstNumber === "" ||
-      this.state.secondNumber === ""
-    ) {
-    }
-    if (this.state.operand === "+") {
-      this.setState((state) => ({
-        result: (+state.firstNumber + +state.secondNumber).toPrecision(8), //Maybe take this out
-        userInput: [],
-        trigger: "",
-      }));
-    }
-    if (this.state.operand === "÷") {
-      this.setState((state) => ({
-        result: (+state.firstNumber / +state.secondNumber) * (1).toFixed(8), //Maybe take this out
-        userInput: [],
-        trigger: "",
-      }));
-    }
-    if (this.state.operand === "x") {
-      this.setState((state) => ({
-        result: +state.firstNumber * +state.secondNumber,
-        userInput: [],
-        trigger: "",
-      }));
-    }
-
-    if (this.state.operand === "-") {
-      this.setState((state) => ({
-        result: +state.firstNumber - +state.secondNumber,
-        userInput: [],
-        trigger: "",
-      }));
-    }
-  }
-
   handleOperators = (content) => {
     if (
       content === "+" &&
@@ -231,6 +191,46 @@ class CalcApp extends React.Component {
       }
     }
   };
+
+  handleEquals() {
+    this.setState((state) => ({ secondNumber: state.cleanInput.join("") }));
+
+    if (this.state.operand === "+") {
+      this.setState((state) => ({
+        result: (+state.firstNumber + +state.secondNumber).toPrecision(8), //Maybe take this out
+        cleanInput: [],
+        trigger: "",
+      }));
+    }
+    if (this.state.operand === "÷") {
+      this.setState((state) => ({
+        result: (+state.firstNumber / +state.secondNumber) * (1).toFixed(8), //Maybe take this out
+        cleanInput: [],
+        trigger: "",
+      }));
+    }
+    if (this.state.operand === "x") {
+      this.setState((state) => ({
+        result: +state.firstNumber * +state.secondNumber,
+        cleanInput: [],
+        trigger: "",
+      }));
+    }
+    // if (this.state.userInput == [] && this.state.operand === "x") {
+    //   this.setState((state) => ({
+    //     result: +state.result * +state.secondNumber,
+    //     cleanInput: [],
+    //     trigger: "",
+    //   }));
+    // }
+    if (this.state.operand === "-") {
+      this.setState((state) => ({
+        result: +state.firstNumber - +state.secondNumber,
+        cleanInput: [],
+        trigger: "",
+      }));
+    }
+  }
 
   render() {
     return (
