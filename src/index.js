@@ -66,6 +66,13 @@ class CalcApp extends React.Component {
 
   handleEquals() {
     this.setState((state) => ({ secondNumber: state.cleanInput.join("") }));
+
+    if (
+      this.state.operand === "" ||
+      this.state.firstNumber === "" ||
+      this.state.secondNumber === ""
+    ) {
+    }
     if (this.state.operand === "+") {
       this.setState((state) => ({
         result: (+state.firstNumber + +state.secondNumber).toPrecision(8), //Maybe take this out
@@ -73,14 +80,14 @@ class CalcApp extends React.Component {
         trigger: "",
       }));
     }
-    if (this.state.operand === "/") {
+    if (this.state.operand === "÷") {
       this.setState((state) => ({
         result: (+state.firstNumber / +state.secondNumber) * (1).toFixed(8), //Maybe take this out
         userInput: [],
         trigger: "",
       }));
     }
-    if (this.state.operand === "*") {
+    if (this.state.operand === "x") {
       this.setState((state) => ({
         result: +state.firstNumber * +state.secondNumber,
         userInput: [],
@@ -98,7 +105,11 @@ class CalcApp extends React.Component {
   }
 
   handleOperators = (content) => {
-    if (content === "+" && this.state.result === "") {
+    if (
+      content === "+" &&
+      this.state.result === "" &&
+      (this.state.cleanInput != "" || this.state.firstNumber != "")
+    ) {
       this.setState((state) => ({
         operand: "+",
         firstNumber: state.cleanInput.join(""),
@@ -117,7 +128,11 @@ class CalcApp extends React.Component {
       }));
     }
 
-    if (content === "-" && this.state.result === "") {
+    if (
+      content === "-" &&
+      this.state.result === "" &&
+      (this.state.cleanInput != "" || this.state.firstNumber != "")
+    ) {
       this.setState((state) => ({
         operand: "-",
         firstNumber: state.cleanInput.join(""),
@@ -136,18 +151,22 @@ class CalcApp extends React.Component {
       }));
     }
 
-    if (content === "*" && this.state.result === "") {
+    if (
+      content === "x" &&
+      this.state.result === "" &&
+      (this.state.cleanInput != "" || this.state.firstNumber != "")
+    ) {
       this.setState((state) => ({
-        operand: "*",
+        operand: "x",
         firstNumber: state.cleanInput.join(""),
         holdOnOperatorPress: state.cleanInput.join(""),
         cleanInput: [],
       }));
     }
 
-    if (content === "*" && this.state.result !== "") {
+    if (content === "x" && this.state.result !== "") {
       this.setState((state) => ({
-        operand: "*",
+        operand: "x",
         firstNumber: this.state.result,
         holdOnOperatorPress: state.cleanInput.join(""),
         cleanInput: [],
@@ -155,18 +174,22 @@ class CalcApp extends React.Component {
       }));
     }
 
-    if (content === "/" && this.state.result === "") {
+    if (
+      content === "÷" &&
+      this.state.result === "" &&
+      (this.state.cleanInput != "" || this.state.firstNumber != "")
+    ) {
       this.setState((state) => ({
-        operand: "/",
+        operand: "÷",
         firstNumber: state.cleanInput.join(""),
         holdOnOperatorPress: state.cleanInput.join(""),
         cleanInput: [],
       }));
     }
 
-    if (content === "/" && this.state.result !== "") {
+    if (content === "÷" && this.state.result !== "") {
       this.setState((state) => ({
-        operand: "/",
+        operand: "÷",
         firstNumber: this.state.result,
         holdOnOperatorPress: state.cleanInput.join(""),
         cleanInput: [],
@@ -238,12 +261,12 @@ class CalcApp extends React.Component {
                 onClick={this.handleSpecials}
               />
               <NumberButton content="e" onClick={this.handlenumbers} />
-              <OperatorButton content="/" onClick={this.handleOperators} />
+              <OperatorButton content="÷" onClick={this.handleOperators} />
 
               <NumberButton content="7" onClick={this.handlenumbers} />
               <NumberButton content="8" onClick={this.handlenumbers} />
               <NumberButton content="9" onClick={this.handlenumbers} />
-              <OperatorButton content="*" onClick={this.handleOperators} />
+              <OperatorButton content="x" onClick={this.handleOperators} />
 
               <NumberButton content="4" onClick={this.handlenumbers} />
               <NumberButton content="5" onClick={this.handlenumbers} />
@@ -403,7 +426,9 @@ class Display extends React.Component {
   render() {
     if (this.props.result == "0") {
       return <div className="results-text">0</div>;
-    } else if (
+    }
+    // else if(this.operand){}
+    else if (
       this.props.holdOnOperatorPress == "" &&
       this.props.firstNumber != "" &&
       this.props.secondNumber != "" &&
