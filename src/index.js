@@ -15,6 +15,7 @@ class CalcApp extends React.Component {
       numberPressed: "",
       trigger: "",
       negated: "no",
+      fakeTrigger: "",
     };
 
     this.handleEquals = this.handleEquals.bind(this);
@@ -28,10 +29,16 @@ class CalcApp extends React.Component {
       holdOnOperatorPress: "",
     }));
     if (content === "1") {
-      this.setState((state) => ({ cleanInput: state.cleanInput.concat("1") }));
+      this.setState((state) => ({
+        cleanInput: state.cleanInput.concat("1"),
+        numberPressed: state.cleanInput.concat("1"),
+      }));
     }
     if (content === "2") {
-      this.setState((state) => ({ cleanInput: state.cleanInput.concat("2") }));
+      this.setState((state) => ({
+        cleanInput: state.cleanInput.concat("2"),
+        numberPressed: state.cleanInput.concat("2"),
+      }));
     }
 
     if (content === "3") {
@@ -168,6 +175,7 @@ class CalcApp extends React.Component {
         operand: "",
         trigger: "",
         holdOnOperatorPress: "",
+        fakeTrigger: "",
       }));
     }
 
@@ -194,40 +202,53 @@ class CalcApp extends React.Component {
 
   handleEquals() {
     this.setState((state) => ({ secondNumber: state.cleanInput.join("") }));
-
-    if (this.state.operand === "+") {
+    if (this.state.operand === "+" && this.state.fakeTrigger != "") {
+      this.setState((state) => ({
+        result: state.result + +state.secondNumber,
+        trigger: "",
+      }));
+    } else if (this.state.operand === "+") {
       this.setState((state) => ({
         result: (+state.firstNumber + +state.secondNumber).toPrecision(8), //Maybe take this out
-        cleanInput: [],
         trigger: "",
+        fakeTrigger: "Plus",
       }));
     }
-    if (this.state.operand === "÷") {
+    if (this.state.operand === "÷" && this.state.fakeTrigger != "") {
       this.setState((state) => ({
-        result: (+state.firstNumber / +state.secondNumber) * (1).toFixed(8), //Maybe take this out
-        cleanInput: [],
+        result: state.result / +state.secondNumber,
         trigger: "",
       }));
+    } else if (this.state.operand === "÷") {
+      this.setState((state) => ({
+        result: +state.firstNumber / +state.secondNumber, //* (1).toFixed(8), //Maybe take this out
+        trigger: "",
+        fakeTrigger: "Divide",
+      }));
     }
-    if (this.state.operand === "x") {
+    if (this.state.operand === "x" && this.state.fakeTrigger != "") {
+      this.setState((state) => ({
+        result: state.result * +state.secondNumber,
+        trigger: "",
+      }));
+    } else if (this.state.operand === "x") {
       this.setState((state) => ({
         result: +state.firstNumber * +state.secondNumber,
-        cleanInput: [],
         trigger: "",
+        fakeTrigger: "Multiply",
       }));
     }
-    // if (this.state.userInput == [] && this.state.operand === "x") {
-    //   this.setState((state) => ({
-    //     result: +state.result * +state.secondNumber,
-    //     cleanInput: [],
-    //     trigger: "",
-    //   }));
-    // }
-    if (this.state.operand === "-") {
+
+    if (this.state.operand === "-" && this.state.fakeTrigger != "") {
+      this.setState((state) => ({
+        result: state.result - +state.secondNumber,
+        trigger: "",
+      }));
+    } else if (this.state.operand === "-") {
       this.setState((state) => ({
         result: +state.firstNumber - +state.secondNumber,
-        cleanInput: [],
         trigger: "",
+        fakeTrigger: "Minus",
       }));
     }
   }
