@@ -66,7 +66,7 @@ class CalcApp extends React.Component {
     if (content === "0") {
       this.setState((state) => ({ cleanInput: state.cleanInput.concat("0") }));
     }
-    if (content === ".") {
+    if (content === "." && this.state.cleanInput.includes(".") === false) {
       this.setState((state) => ({ cleanInput: state.cleanInput.concat(".") }));
     }
   };
