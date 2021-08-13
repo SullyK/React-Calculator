@@ -187,7 +187,12 @@ class CalcApp extends React.Component {
     }
 
     if (content === "⁺∕₋") {
-      if (this.state.negated == "no" && this.state.negResultFlag == "") {
+      if (this.state.cleanInput.length == 0) {
+        this.setState((state) => ({
+          cleanInput: state.cleanInput.concat("-"),
+          negated: "yes",
+        }));
+      } else if (this.state.negated == "no" && this.state.negResultFlag == "") {
         let newArr = this.state.cleanInput;
         newArr.unshift("-");
 
@@ -494,6 +499,8 @@ class Display extends React.Component {
       this.props.trigger != ""
     ) {
       return <div className="results-text">{this.props.cleanInput}</div>;
+    } else if (this.props.cleanInput == "-") {
+      return <div className="results-text">{this.props.cleanInput}0</div>;
     } else if (
       this.props.result === "" &&
       this.props.cleanInput == "" &&
@@ -519,7 +526,7 @@ class Display extends React.Component {
         <div className="results-text">{this.props.holdOnOperatorPress}</div>
       );
     }
-    return <div className="results-text">{this.props.result}</div>;
+    return <div className="results-text">{this.props.result}aaaa</div>;
   }
 }
 
