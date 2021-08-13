@@ -201,7 +201,10 @@ class CalcApp extends React.Component {
   };
 
   handleEquals() {
-    this.setState((state) => ({ secondNumber: state.cleanInput.join("") }));
+    this.setState((state) => ({
+      secondNumber: state.cleanInput.join(""),
+      holdOnOperatorPress: "",
+    }));
     if (this.state.operand === "+" && this.state.fakeTrigger != "") {
       this.setState((state) => ({
         result: state.result + +state.secondNumber,
@@ -483,6 +486,7 @@ class Display extends React.Component {
         <div className="results-text">{this.props.holdOnOperatorPress}</div>
       );
     }
+    return <div className="results-text">{this.props.result}</div>;
   }
 }
 
