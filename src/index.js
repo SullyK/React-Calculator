@@ -16,6 +16,7 @@ class CalcApp extends React.Component {
       trigger: "",
       negated: "no",
       fakeTrigger: "",
+      negResultFlag: "",
     };
 
     this.handleEquals = this.handleEquals.bind(this);
@@ -82,6 +83,7 @@ class CalcApp extends React.Component {
         firstNumber: state.cleanInput.join(""),
         holdOnOperatorPress: state.cleanInput.join(""),
         cleanInput: [],
+        negated: "no",
       }));
     }
 
@@ -92,6 +94,7 @@ class CalcApp extends React.Component {
         holdOnOperatorPress: state.cleanInput.join(""),
         cleanInput: [],
         trigger: "okay",
+        negated: "no",
       }));
     }
 
@@ -128,6 +131,7 @@ class CalcApp extends React.Component {
         firstNumber: state.cleanInput.join(""),
         holdOnOperatorPress: state.cleanInput.join(""),
         cleanInput: [],
+        negResultFlag: "",
       }));
     }
 
@@ -138,6 +142,7 @@ class CalcApp extends React.Component {
         holdOnOperatorPress: state.cleanInput.join(""),
         cleanInput: [],
         trigger: "okay",
+        negResultFlag: "",
       }));
     }
 
@@ -151,6 +156,7 @@ class CalcApp extends React.Component {
         firstNumber: state.cleanInput.join(""),
         holdOnOperatorPress: state.cleanInput.join(""),
         cleanInput: [],
+        negResultFlag: "",
       }));
     }
 
@@ -161,6 +167,7 @@ class CalcApp extends React.Component {
         holdOnOperatorPress: state.cleanInput.join(""),
         cleanInput: [],
         trigger: "okay",
+        negResultFlag: "",
       }));
     }
   };
@@ -180,7 +187,7 @@ class CalcApp extends React.Component {
     }
 
     if (content === "⁺∕₋") {
-      if (this.state.negated == "no") {
+      if (this.state.negated == "no" && this.state.negResultFlag == "") {
         let newArr = this.state.cleanInput;
         newArr.unshift("-");
 
@@ -188,13 +195,38 @@ class CalcApp extends React.Component {
           negated: "yes",
           cleanInput: newArr,
         }));
-      } else {
+      } else if (
+        this.state.negated == "yes" &&
+        this.state.negResultFlag == ""
+      ) {
         let newArr = this.state.cleanInput;
         newArr.splice(0, 1);
 
         this.setState((state) => ({
           negated: "no",
           cleanInput: newArr,
+        }));
+      }
+
+      if (
+        this.state.negated == "no" &&
+        this.state.negResultFlag == "activated"
+      ) {
+        let newArr = this.state.result;
+
+        this.setState((state) => ({
+          negated: "yes",
+          result: newArr * -1,
+        }));
+      } else if (
+        this.state.negated == "yes" &&
+        this.state.negResultFlag == "activated"
+      ) {
+        let newArr = this.state.result;
+
+        this.setState((state) => ({
+          negated: "no",
+          result: newArr * -1,
         }));
       }
     }
@@ -204,6 +236,7 @@ class CalcApp extends React.Component {
     this.setState((state) => ({
       secondNumber: state.cleanInput.join(""),
       holdOnOperatorPress: "",
+      negResultFlag: "activated",
     }));
     if (this.state.operand === "+" && this.state.fakeTrigger != "") {
       this.setState((state) => ({
@@ -212,7 +245,7 @@ class CalcApp extends React.Component {
       }));
     } else if (this.state.operand === "+") {
       this.setState((state) => ({
-        result: (+state.firstNumber + +state.secondNumber).toPrecision(8), //Maybe take this out
+        result: +state.firstNumber + +state.secondNumber, //.toPrecision(8), //Maybe take this out
         trigger: "",
         fakeTrigger: "Plus",
       }));
