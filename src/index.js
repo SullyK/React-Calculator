@@ -238,21 +238,54 @@ class CalcApp extends React.Component {
   };
 
   handleEquals() {
-    this.setState((state) => ({
-      secondNumber: state.cleanInput.join(""),
-      holdOnOperatorPress: "",
-      negResultFlag: "activated",
-    }));
+    if (this.state.cleanInput == "-") {
+      this.setState((state) => ({
+        result: state.firstNumber,
+        cleanInput: "" + state.firstNumber,
+        DIDTHISTRIGGER: "DEVILMAN",
+        negated: "no",
+
+        // holdOnOperatorPress: "", //might have some side effects but this might just be the only case this occurs
+      }));
+      return;
+    }
+    if (this.state.cleanInput.length != 0)
+      this.setState((state) => ({
+        secondNumber: state.cleanInput.join(""),
+        holdOnOperatorPress: "",
+        negResultFlag: "activated",
+      }));
+    else {
+      this.setState((state) => ({
+        holdOnOperatorPress: "",
+        negResultFlag: "activated",
+      }));
+    }
+
     if (this.state.operand === "+" && this.state.fakeTrigger != "") {
       this.setState((state) => ({
         result: state.result + +state.secondNumber,
         trigger: "",
+        GOOD: "wegeee",
+      }));
+    } else if (
+      this.state.operand === "+" &&
+      this.state.firstNumber != "" &&
+      this.state.cleanInput.length == 0
+    ) {
+      this.setState((state) => ({
+        result: +state.firstNumber + +state.firstNumber, //.toPrecision(8), //Maybe take this out
+        secondNumber: "" + state.firstNumber,
+        trigger: "",
+        fakeTrigger: "Plus",
+        WEIN: "ayYYYY",
       }));
     } else if (this.state.operand === "+") {
       this.setState((state) => ({
         result: +state.firstNumber + +state.secondNumber, //.toPrecision(8), //Maybe take this out
         trigger: "",
         fakeTrigger: "Plus",
+        WEIN: "Damn",
       }));
     }
     if (this.state.operand === "÷" && this.state.fakeTrigger != "") {
