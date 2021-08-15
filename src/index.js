@@ -293,6 +293,18 @@ class CalcApp extends React.Component {
         result: state.result / +state.secondNumber,
         trigger: "",
       }));
+    } else if (
+      this.state.operand === "÷" &&
+      this.state.firstNumber != "" &&
+      this.state.cleanInput.length == 0
+    ) {
+      this.setState((state) => ({
+        result: +state.firstNumber / +state.firstNumber, //.toPrecision(8), //Maybe take this out
+        secondNumber: "" + state.firstNumber,
+        trigger: "",
+        fakeTrigger: "Divide",
+        WEIN: "ayYYYY",
+      }));
     } else if (this.state.operand === "÷") {
       this.setState((state) => ({
         result: +state.firstNumber / +state.secondNumber, //* (1).toFixed(8), //Maybe take this out
@@ -304,6 +316,18 @@ class CalcApp extends React.Component {
       this.setState((state) => ({
         result: state.result * +state.secondNumber,
         trigger: "",
+      }));
+    } else if (
+      this.state.operand === "x" &&
+      this.state.firstNumber != "" &&
+      this.state.cleanInput.length == 0
+    ) {
+      this.setState((state) => ({
+        result: +state.firstNumber * +state.firstNumber, //.toPrecision(8), //Maybe take this out
+        secondNumber: "" + state.firstNumber,
+        trigger: "",
+        fakeTrigger: "Multiply",
+        WEIN: "ayYYYY",
       }));
     } else if (this.state.operand === "x") {
       this.setState((state) => ({
@@ -317,6 +341,18 @@ class CalcApp extends React.Component {
       this.setState((state) => ({
         result: state.result - +state.secondNumber,
         trigger: "",
+      }));
+    } else if (
+      this.state.operand === "-" &&
+      this.state.firstNumber != "" &&
+      this.state.cleanInput.length == 0
+    ) {
+      this.setState((state) => ({
+        result: +state.firstNumber - +state.firstNumber, //.toPrecision(8), //Maybe take this out
+        secondNumber: "" + state.firstNumber,
+        trigger: "",
+        fakeTrigger: "Minus",
+        WEIN: "ayYYYY",
       }));
     } else if (this.state.operand === "-") {
       this.setState((state) => ({
