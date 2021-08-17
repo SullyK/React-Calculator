@@ -29,6 +29,15 @@ class CalcApp extends React.Component {
     this.setState((state) => ({
       holdOnOperatorPress: "",
     }));
+
+    if (this.state.cleanInput.includes("-0")) {
+      let removeMinus = this.state.cleanInput;
+      removeMinus.splice(0, 0);
+
+      this.setState((state) => ({
+        cleanInput: removeMinus,
+      }));
+    }
     if (content === "1") {
       this.setState((state) => ({
         cleanInput: state.cleanInput.concat("1"),
@@ -189,7 +198,8 @@ class CalcApp extends React.Component {
     if (content === "⁺∕₋") {
       if (this.state.cleanInput.length == 0) {
         this.setState((state) => ({
-          cleanInput: state.cleanInput.concat("-"),
+          cleanInput: state.cleanInput.concat("-0"),
+
           negated: "yes",
         }));
       } else if (this.state.negated == "no" && this.state.negResultFlag == "") {
@@ -238,15 +248,44 @@ class CalcApp extends React.Component {
   };
 
   handleEquals() {
-    if (this.state.cleanInput == "-") {
-      this.setState((state) => ({
-        result: state.firstNumber,
-        cleanInput: "" + state.firstNumber,
-        DIDTHISTRIGGER: "DEVILMAN",
-        negated: "no",
+    if (this.state.cleanInput == "-0") {
+      if (this.state.operand == "x") {
+        this.setState((state) => ({
+          result: state.firstNumber * -0,
+          cleanInput: "" + state.firstNumber,
+          DIDTHISTRIGGER: "DEVILMAN",
+          negated: "no",
 
-        // holdOnOperatorPress: "", //might have some side effects but this might just be the only case this occurs
-      }));
+          // holdOnOperatorPress: "", //might have some side effects but this might just be the only case this occurs
+        }));
+      }
+
+      if (this.state.operand == "-") {
+        this.setState((state) => ({
+          result: state.firstNumber - -0,
+          cleanInput: "" + state.firstNumber,
+          DIDTHISTRIGGER: "DEVILMAN",
+          negated: "no",
+        }));
+      }
+
+      if (this.state.operand == "+") {
+        this.setState((state) => ({
+          result: state.firstNumber + -0,
+          cleanInput: "" + state.firstNumber,
+          DIDTHISTRIGGER: "DEVILMAN",
+          negated: "no",
+        }));
+      }
+
+      if (this.state.operand == "÷") {
+        this.setState((state) => ({
+          result: state.firstNumber / 0,
+          cleanInput: "" + state.firstNumber,
+          DIDTHISTRIGGER: "DEVILMAN",
+          negated: "no",
+        }));
+      }
       return;
     }
     if (this.state.cleanInput.length != 0)
@@ -568,8 +607,8 @@ class Display extends React.Component {
       this.props.trigger != ""
     ) {
       return <div className="results-text">{this.props.cleanInput}</div>;
-    } else if (this.props.cleanInput == "-") {
-      return <div className="results-text">{this.props.cleanInput}0</div>;
+    } else if (this.props.cleanInput == "-0") {
+      return <div className="results-text">-0</div>;
     } else if (
       this.props.result === "" &&
       this.props.cleanInput == "" &&
@@ -590,12 +629,14 @@ class Display extends React.Component {
       this.props.cleanInput != ""
     ) {
       return <div className="results-text">{this.props.cleanInput}</div>;
+    } else if (this.props.result == Infinity) {
+      return <div className="results-text">{this.props.result}</div>;
     } else if (this.props.holdOnOperatorPress !== "") {
       return (
         <div className="results-text">{this.props.holdOnOperatorPress}</div>
       );
     }
-    return <div className="results-text">{this.props.result}aaaa</div>;
+    return <div className="results-text">{this.props.result}</div>;
   }
 }
 
