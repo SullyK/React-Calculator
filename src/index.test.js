@@ -1250,3 +1250,4 @@ test("Basic Divison: 100 / 10 = 10", async () => {
   await browser.close();
   expect(finalResult).toBe("10");
 });
+//Basic tests complete
