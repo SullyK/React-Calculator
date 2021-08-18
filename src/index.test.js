@@ -1185,7 +1185,7 @@ test("Basic Divison: 33 / 11 = 3", async () => {
   let value = await page.$(".results-text");
   const finalResult = await page.evaluate((value) => value.textContent, value);
   await browser.close();
-  expect(finalResult).toBe("11");
+  expect(finalResult).toBe("3");
 });
 
 test("Basic Divison: 100 / 10 = 10", async () => {
