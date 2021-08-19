@@ -1,6 +1,6 @@
 import puppeteer from "puppeteer";
 jest.setTimeout("20000");
-test("Basic Working calculations", async () => {
+test("Basic Working Calculations", async () => {
   const browser = await puppeteer.launch({});
   const page = await browser.newPage();
 
@@ -1109,6 +1109,7 @@ test("Basic Working calculations", async () => {
   value = await page.$(".results-text");
   finalResult = await page.evaluate((value) => value.textContent, value);
   expect(finalResult).toBe("Infinity");
+  await browser.close();
 });
 //Divison tests:
 // 1 / 0 = Infinity - done
