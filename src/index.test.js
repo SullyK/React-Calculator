@@ -1,6 +1,6 @@
 import puppeteer from "puppeteer";
-
-test("Addition", async () => {
+jest.setTimeout("20000");
+test("Basic Working calculations", async () => {
   const browser = await puppeteer.launch({});
   const page = await browser.newPage();
 
@@ -301,13 +301,8 @@ test("Addition", async () => {
   value = await page.$(".results-text");
   finalResult = await page.evaluate((value) => value.textContent, value);
   expect(finalResult).toBe("2210.9");
-});
 
-test("Basic Subtraction: 13 - 8 = 5", async () => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-
-  await page.goto("http://localhost:3000/");
+  page.reload();
   //13 - 8 = 5
 
   await page.waitForSelector(
@@ -345,8 +340,8 @@ test("Basic Subtraction: 13 - 8 = 5", async () => {
     ".center-all > div > .calc-skeleton > .num-pad > .clickable-key-operator:nth-child(19)"
   );
 
-  let value = await page.$(".results-text");
-  let finalResult = await page.evaluate((value) => value.textContent, value);
+  value = await page.$(".results-text");
+  finalResult = await page.evaluate((value) => value.textContent, value);
   expect(finalResult).toBe("5");
 
   page.reload();
@@ -550,25 +545,18 @@ test("Basic Subtraction: 13 - 8 = 5", async () => {
   value = await page.$(".results-text");
   finalResult = await page.evaluate((value) => value.textContent, value);
   expect(finalResult).toBe("5.2");
-});
 
-//Multiplication tests
+  //Multiplication tests
 
-// 1 x 0 = 0 - done
-// 0 x 1 = 0 - done
-// 15.5 x 0 = 0 - done
-// 1 x 1 = 1 - done
-// 3 x 4 = 12 - done
-// 6 x 5 = 30 - done
-// 50 x 50 =  2500
+  // 1 x 0 = 0 - done
+  // 0 x 1 = 0 - done
+  // 15.5 x 0 = 0 - done
+  // 1 x 1 = 1 - done
+  // 3 x 4 = 12 - done
+  // 6 x 5 = 30 - done
+  // 50 x 50 =  2500
 
-test("Multiplication: 1 x 0 = 0", async () => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-
-  await page.goto("http://localhost:3000/");
-
-  await page.setViewport({ width: 767, height: 748 });
+  page.reload();
   //1 x 0 = 0
 
   await page.waitForSelector(
@@ -599,8 +587,8 @@ test("Multiplication: 1 x 0 = 0", async () => {
     ".center-all > div > .calc-skeleton > .num-pad > .clickable-key-operator:nth-child(19)"
   );
 
-  let value = await page.$(".results-text");
-  let finalResult = await page.evaluate((value) => value.textContent, value);
+  value = await page.$(".results-text");
+  finalResult = await page.evaluate((value) => value.textContent, value);
   expect(finalResult).toBe("0");
 
   page.reload();
@@ -849,23 +837,16 @@ test("Multiplication: 1 x 0 = 0", async () => {
   value = await page.$(".results-text");
   finalResult = await page.evaluate((value) => value.textContent, value);
   expect(finalResult).toBe("2500");
-});
 
-//Divison tests:
-// 1 / 0 = Infinity - done
-// 1 / 1 = 1 - done
-// 0 / 2000 = 0 - done
-// 1 / 2 = 0.5 - done
-// 33 / 3 = 11 - done
-// 100 / 10 = 10
+  //Divison tests:
+  // 1 / 0 = Infinity - done
+  // 1 / 1 = 1 - done
+  // 0 / 2000 = 0 - done
+  // 1 / 2 = 0.5 - done
+  // 33 / 3 = 11 - done
+  // 100 / 10 = 10
 
-test("Divisons", async () => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-
-  await page.goto("http://localhost:3000/");
-
-  await page.setViewport({ width: 1178, height: 758 });
+  page.reload();
 
   //100 / 10 = 10
   await page.waitForSelector(
@@ -917,8 +898,8 @@ test("Divisons", async () => {
     ".center-all > div > .calc-skeleton > .num-pad > .clickable-key-operator:nth-child(19)"
   );
 
-  let value = await page.$(".results-text");
-  let finalResult = await page.evaluate((value) => value.textContent, value);
+  value = await page.$(".results-text");
+  finalResult = await page.evaluate((value) => value.textContent, value);
   expect(finalResult).toBe("10");
 
   page.reload();
